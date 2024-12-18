@@ -106,7 +106,7 @@ function App() {
           onClick={handleTransfer}
           className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition-all"
         >
-          Transfer Tokens
+          Pay
         </button>
 
         {status && (
