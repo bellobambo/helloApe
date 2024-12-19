@@ -1,8 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ethers } from "ethers";
-import TokenTransfer from "./TokenTransfer.json";
 import { LandingNavbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
 import { Coins, DiamondPlus, ShieldPlus, Wallet } from "lucide-react";
@@ -25,7 +22,8 @@ const Page = () => {
               <ShieldPlus size={64} />
             </div>
             <div className="text-center text-gray-700 font-medium">
-              Verify your identity for library access, labs, and more using cutting-edge decentralized technology.
+              Verify your identity for library access, labs, and more using
+              cutting-edge decentralized technology.
             </div>
           </div>
 
@@ -34,7 +32,8 @@ const Page = () => {
               <Coins size={64} />
             </div>
             <div className="text-center text-gray-700 font-medium">
-              Make quick and secure payments at campus shops using crypto or fiat through your connected wallet.
+              Make quick and secure payments at campus shops using crypto or
+              fiat through your connected wallet.
             </div>
           </div>
 
@@ -43,7 +42,8 @@ const Page = () => {
               <Wallet size={64} />
             </div>
             <div className="text-center text-gray-700 font-medium">
-              Browse and shop from your favorite campus stores, all in one place.
+              Browse and shop from your favorite campus stores, all in one
+              place.
             </div>
           </div>
         </div>
@@ -57,14 +57,24 @@ const Page = () => {
           </div>
 
           <div className="mt-2 lg:mt-0 flex flex underline  gap-2 text-sm">
-            <Link href="/" className="hover:text-gray-200">About Us</Link>
-            <Link href="/" className="hover:text-gray-200">Features</Link>
-            <Link href="/" className="hover:text-gray-200">Pricing</Link>
-            <Link href="/" className="hover:text-gray-200">Contact</Link>
+            <Link href="/" className="hover:text-gray-200">
+              About Us
+            </Link>
+            <Link href="/" className="hover:text-gray-200">
+              Features
+            </Link>
+            <Link href="/" className="hover:text-gray-200">
+              Pricing
+            </Link>
+            <Link href="/" className="hover:text-gray-200">
+              Contact
+            </Link>
           </div>
 
           <div className="mt-6 lg:mt-0 text-sm text-center lg:text-right">
-            <p>&copy; {new Date().getFullYear()} UniToken. All rights reserved.</p>
+            <p>
+              &copy; {new Date().getFullYear()} UniToken. All rights reserved.
+            </p>
             <p>Designed with ❤️ for students everywhere.</p>
           </div>
         </div>

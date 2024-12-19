@@ -1,28 +1,51 @@
 "use client";
-// import {
-//   SignedIn,
-//   SignedOut,
-//   SignInButton,
-//   SignInWithMetamaskButton,
-//   UserButton,
-// } from "@clerk/nextjs";
+import React, { useState } from "react";
 import Link from "next/link";
-import React from "react";
-import { Button } from "../ui/button";
 import { DiamondPlus } from "lucide-react";
-import { usePathname } from "next/navigation";
-// import { dark, neobrutalism, shadesOfPurple } from "@clerk/themes";
-// import CoinbaseButton from "@/app/Components/CoinbaseButton";
+import { useRouter } from "next/navigation";
 
 export const LandingNavbar = () => {
-  const pathname = usePathname();
+  const router = useRouter(); // Router for navigation
+  const [userAddress, setUserAddress] = useState(null);
+
+  const connectToMetaMask = async () => {
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setUserAddress(accounts[0]);
+        router.push("/card"); // Redirect to the /card page
+      } catch (error) {
+        alert("Could Not Connect to Metamask!!");
+        console.error("Error connecting to MetaMask:", error);
+      }
+    } else {
+      alert(
+        "MetaMask is not installed. Please install MetaMask and try again."
+      );
+    }
+  };
+
+  const displayAddress = (address) => {
+    if (!address) return "Connect Wallet";
+    return `${address.slice(0, 4)}...${address.slice(-4)}`;
+  };
+
+  const handleButtonClick = () => {
+    if (userAddress) {
+      router.push("/card"); // Redirect directly if wallet is connected
+    } else {
+      connectToMetaMask(); // Connect to MetaMask if not already connected
+    }
+  };
 
   return (
-    <div className="">
-      <div className="w-[90%] mx-auto flex justify-between items-center py-3.5  ">
+    <div>
+      <div className="w-[90%] mx-auto flex justify-between items-center py-3.5">
         <Link
           href=""
-          className="text-2xl  outline-none font-semibold flex items-center gap-5"
+          className="text-2xl outline-none font-semibold flex items-center gap-5"
         >
           <div>
             <DiamondPlus />
@@ -30,9 +53,12 @@ export const LandingNavbar = () => {
           <div>UniToken</div>
         </Link>
 
-        <div className="font-semibold"> 
-          ApeChain
-        </div>
+        <button
+          onClick={handleButtonClick}
+          className="p-2 bg-blue-600 rounded-md text-white font-medium"
+        >
+          {displayAddress(userAddress)}
+        </button>
       </div>
     </div>
   );
