@@ -3,124 +3,74 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import TokenTransfer from "./TokenTransfer.json";
+import { LandingNavbar } from "@/components/landing/navbar";
+import { Hero } from "@/components/landing/hero";
+import { Coins, DiamondPlus, ShieldPlus, Wallet } from "lucide-react";
+import Link from "next/link";
 
-const tokenAddress = "0x8257241C80A0F42C01818539A603962822D4a27D";
-
-function App() {
-  const [userAddress, setUserAddress] = useState("");
-  const [receiverAddress, setReceiverAddress] = useState("");
-  const [amount, setAmount] = useState("");
-  const [status, setStatus] = useState("");
-
-  useEffect(() => {
-    const fetchAccount = async () => {
-      if (typeof window.ethereum !== "undefined") {
-        try {
-          const accounts = await window.ethereum.request({
-            method: "eth_requestAccounts",
-          });
-          setUserAddress(accounts[0]);
-        } catch (error) {
-          console.error("Error fetching accounts:", error);
-        }
-      }
-    };
-
-    fetchAccount();
-  }, []);
-
-  const handleTransfer = async () => {
-    if (!receiverAddress || !amount) {
-      setStatus("Please enter a valid amount and receiver address.");
-      return;
-    }
-
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        tokenAddress,
-        TokenTransfer.abi,
-        signer
-      );
-
-      setStatus("Transaction sent, waiting for confirmation...");
-      const tx = await contract.transfer(
-        receiverAddress,
-        ethers.parseUnits(amount, 18)
-      );
-      await tx.wait();
-      setStatus("Transfer successful!");
-    } catch (error) {
-      console.error("Error transferring tokens:", error);
-      setStatus("Transfer failed. Please check the details and try again.");
-    }
-  };
-
+const Page = () => {
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-purple-100 shadow-md rounded-lg p-6">
-        <h1 className="text-2xl font-semibold text-purple-800 mb-4 text-center">
-          Token Transfer
-        </h1>
+    <div className="card-gradient bg-blue-400">
+      <LandingNavbar />
+      <Hero />
 
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-purple-700">
-            Your Address:
-          </label>
-          <div
-            className="bg-purple-200 text-purple-800 p-2 rounded-md text-sm truncate"
-            title={userAddress}
-          >
-            {userAddress || "Fetching your address..."}
+      <div className="w-[90%] mx-auto py-16">
+        <div className="text-center text-3xl font-medium">
+          <h4>Why Choose UniToken</h4>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-10 pt-10">
+          <div className="bg-white shadow rounded-lg p-4 flex flex-col items-center">
+            <div className="mb-3 text-blue-600">
+              <ShieldPlus size={64} />
+            </div>
+            <div className="text-center text-gray-700 font-medium">
+              Verify your identity for library access, labs, and more using cutting-edge decentralized technology.
+            </div>
+          </div>
+
+          <div className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+            <div className="mb-3 text-blue-600">
+              <Coins size={64} />
+            </div>
+            <div className="text-center text-gray-700 font-medium">
+              Make quick and secure payments at campus shops using crypto or fiat through your connected wallet.
+            </div>
+          </div>
+
+          <div className="bg-white shadow rounded-lg p-4 flex flex-col items-center">
+            <div className="mb-3 text-blue-600">
+              <Wallet size={64} />
+            </div>
+            <div className="text-center text-gray-700 font-medium">
+              Browse and shop from your favorite campus stores, all in one place.
+            </div>
           </div>
         </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-purple-700">
-            Receiver Address:
-          </label>
-          <input
-            type="text"
-            value={receiverAddress}
-            onChange={(e) => setReceiverAddress(e.target.value)}
-            placeholder="Enter receiver's address"
-            className="w-full border border-purple-300 p-2 rounded-md focus:ring-purple-500 focus:border-purple-500"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-purple-700">
-            Amount:
-          </label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount to transfer"
-            className="w-full border border-purple-300 p-2 rounded-md focus:ring-purple-500 focus:border-purple-500"
-          />
-        </div>
-
-        <button
-          onClick={handleTransfer}
-          className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition-all"
-        >
-          Pay
-        </button>
-
-        {status && (
-          <p
-            className={`mt-4 text-center font-medium ${
-              status.includes("successful") ? "text-green-600" : "text-red-600"
-            }`}
-          >
-            {status}
-          </p>
-        )}
       </div>
+
+      <footer className="py-10 bg-blue-500 text-white border-t border-blue-700/50">
+        <div className="w-[90%] mx-auto flex flex-col lg:flex-row justify-between items-center">
+          <div className="flex items-center gap-5">
+            <DiamondPlus size={32} className="text-white" />
+            <span className="text-2xl font-semibold">UniToken</span>
+          </div>
+
+          <div className="mt-2 lg:mt-0 flex flex underline  gap-2 text-sm">
+            <Link href="/" className="hover:text-gray-200">About Us</Link>
+            <Link href="/" className="hover:text-gray-200">Features</Link>
+            <Link href="/" className="hover:text-gray-200">Pricing</Link>
+            <Link href="/" className="hover:text-gray-200">Contact</Link>
+          </div>
+
+          <div className="mt-6 lg:mt-0 text-sm text-center lg:text-right">
+            <p>&copy; {new Date().getFullYear()} UniToken. All rights reserved.</p>
+            <p>Designed with ❤️ for students everywhere.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
-}
+};
 
-export default App;
+export default Page;
