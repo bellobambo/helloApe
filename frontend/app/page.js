@@ -4,8 +4,45 @@ import { LandingNavbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
 import { Coins, DiamondPlus, ShieldPlus, Wallet } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const Page = () => {
+  const router = useRouter();
+  const [userAddress, setUserAddress] = useState(null);
+
+  const connectToMetaMask = async () => {
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setUserAddress(accounts[0]);
+        router.push("/card");
+      } catch (error) {
+        alert("Could Not Connect to Metamask!!");
+        console.error("Error connecting to MetaMask:", error);
+      }
+    } else {
+      alert(
+        "MetaMask is not installed. Please install MetaMask and try again."
+      );
+    }
+  };
+
+  const displayAddress = (address) => {
+    if (!address) return "Connect Wallet";
+    return `${address.slice(0, 4)}...${address.slice(-4)}`;
+  };
+
+  const handleButtonClick = () => {
+    if (userAddress) {
+      router.push("/card"); // Redirect directly if wallet is connected
+    } else {
+      connectToMetaMask(); // Connect to MetaMask if not already connected
+    }
+  };
+
   return (
     <div className="card-gradient bg-blue-400">
       <LandingNavbar />
@@ -69,6 +106,13 @@ const Page = () => {
             <Link href="/" className="hover:text-gray-200">
               Contact
             </Link>
+
+            <button
+              onClick={handleButtonClick}
+              className="p-2 bg-blue-600 rounded-md text-white font-medium"
+            >
+              {displayAddress(userAddress)}
+            </button>
           </div>
 
           <div className="mt-6 lg:mt-0 text-sm text-center lg:text-right">
