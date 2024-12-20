@@ -53,12 +53,12 @@ export const LandingNavbar = () => {
           <div>UniToken</div>
         </Link>
 
-        {/* <button
+        <button
           onClick={handleButtonClick}
           className="p-2 bg-blue-600 rounded-md text-white font-medium"
         >
           {displayAddress(userAddress)}
-        </button> */}
+        </button>
       </div>
     </div>
   );
