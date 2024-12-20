@@ -2,24 +2,11 @@
 
 import React, { useEffect } from "react";
 import { Button } from "../ui/button";
-// import { useAccount, useConnect } from "wagmi"; 
-// import CoinbaseButton from "@/app/Components/CoinbaseButton";
+
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-// import CoinbaseButton from "./Components/CoinbaseButton"; // import CoinbaseButton
 
 export const Hero = () => {
-  // const { address, isConnected } = useAccount();
-  // const { connectors } = useConnect();
-
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   if (isConnected && address) {
-  //     router.push("/details");
-  //   }
-  // }, [isConnected, address, router]);
-
   return (
     <div>
       <div className="mx-auto w-[90%] py-16 flex flex-col lg:flex-row gap-10 ">
@@ -33,7 +20,9 @@ export const Hero = () => {
             hassle-free campus activities.
           </h6>
         </div>
-        <div className="flex-1"><img src="  /landingImg.png" alt="c" /></div>
+        <div className="flex-1">
+          <img src="  /landingImg.png" alt="c" />
+        </div>
       </div>
     </div>
   );

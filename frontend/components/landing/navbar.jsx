@@ -5,7 +5,7 @@ import { DiamondPlus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export const LandingNavbar = () => {
-  const router = useRouter(); // Router for navigation
+  const router = useRouter();
   const [userAddress, setUserAddress] = useState(null);
 
   const connectToMetaMask = async () => {
@@ -15,7 +15,7 @@ export const LandingNavbar = () => {
           method: "eth_requestAccounts",
         });
         setUserAddress(accounts[0]);
-        router.push("/card"); // Redirect to the /card page
+        router.push("/card");
       } catch (error) {
         alert("Could Not Connect to Metamask!!");
         console.error("Error connecting to MetaMask:", error);

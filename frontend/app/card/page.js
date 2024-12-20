@@ -11,7 +11,6 @@ function App() {
   const [amount, setAmount] = useState("");
   const [status, setStatus] = useState("");
 
-  // Fetch the user's address on component mount
   useEffect(() => {
     const fetchAccount = async () => {
       if (typeof window.ethereum !== "undefined") {
