@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.bg-pattern {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(0, 0, 255, 0.05),
+      rgba(0, 0, 255, 0.05) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  }
+  
